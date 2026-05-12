@@ -21,14 +21,18 @@
           <strong>
             Ihr System: <br />
             <ul>
-              <li><strong>Betriebssystem/Browser:</strong> <i>{{ sysSpecs.browser }}</i></li>
-              <li><strong>Bildschirmgröße:</strong> <i>{{ sysSpecs.screenSize }}</i></li>
+              <li>
+                <strong>Betriebssystem/Browser:</strong> <i>{{ sysSpecs.browser }}</i>
+              </li>
+              <li>
+                <strong>Bildschirmgröße:</strong> <i>{{ sysSpecs.screenSize }}</i>
+              </li>
             </ul>
           </strong>
         </v-card-text>
       </v-card-title>
       <v-card-actions>
-        <v-spacer></v-spacer>
+        <v-spacer />
         <v-btn variant="text" @click="_close"> Schließen </v-btn>
       </v-card-actions>
     </v-card>

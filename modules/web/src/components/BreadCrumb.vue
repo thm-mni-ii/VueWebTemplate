@@ -1,5 +1,5 @@
 <template>
-  <v-breadcrumbs class="breadcrumbs" bg-color="primary-dark" :items="items"></v-breadcrumbs>
+  <v-breadcrumbs class="breadcrumbs" bg-color="primary-dark" :items="items" />
 </template>
 
 <script setup lang="ts">
@@ -70,7 +70,7 @@ const calculateBreadCrumb = async () => {
     }
 
     if (i > 0 && path[i - 1] == 'course') {
-      let newTitle = await courseService.getCourse(Number(path[i])).then((response) => {
+      const newTitle = await courseService.getCourse(Number(path[i])).then((response) => {
         return response.data.name
       })
 

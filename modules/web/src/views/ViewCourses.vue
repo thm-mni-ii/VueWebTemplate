@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <CoursesList ref="coursesList"></CoursesList>
-    <v-btn v-if="isAdmin" id="createCourseBtn" color="primary-dark" @click="createCourse">Kurs erstellen</v-btn>
+    <CoursesList ref="coursesList" />
+    <v-btn v-if="isAdmin" id="createCourseBtn" color="primary-dark" @click="createCourse"> Kurs erstellen </v-btn>
   </div>
-  <DialogCreateCourse ref="dialogCreateCourse"></DialogCreateCourse>
+  <DialogCreateCourse ref="dialogCreateCourse" />
 </template>
 
 <script setup lang="ts">
@@ -25,7 +25,8 @@ const isAdmin = ref(false)
 onMounted(() => {
   coursesList.value?.loadCourses()
 
-  isAdmin.value = authUserStore.user?.roles.includes(GlobalRoles.ROLE_ADMIN)!
+  const roles = authUserStore.user?.roles ?? []
+  isAdmin.value = roles.includes(GlobalRoles.ROLE_ADMIN)
 })
 
 const createCourse = () => {

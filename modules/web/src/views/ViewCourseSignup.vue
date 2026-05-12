@@ -11,9 +11,9 @@
         <v-alert class="mt-4" type="info" variant="tonal" density="comfortable"> Einschreiben funktioniert hier nur gegen lokale Beispieldaten. Ersetze die Services später durch die gewünschte Backend-Implementierung. </v-alert>
       </v-card-item>
 
-      <v-text-field v-if="course?.keyPassword != ''" v-model="key" label="Einschreibeschlüssel" class="textfield" variant="solo"></v-text-field>
+      <v-text-field v-if="course?.keyPassword != ''" v-model="key" label="Einschreibeschlüssel" class="textfield" variant="solo" />
       <v-card-actions>
-        <v-btn class="button mb-3" color="warning" @click="signup">Einschreiben</v-btn>
+        <v-btn class="button mb-3" color="warning" @click="signup"> Einschreiben </v-btn>
       </v-card-actions>
     </v-card>
   </div>

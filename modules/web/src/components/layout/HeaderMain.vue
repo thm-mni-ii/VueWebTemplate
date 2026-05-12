@@ -7,8 +7,8 @@
       </router-link>
     </v-toolbar-title>
     <v-spacer />
-    <v-btn v-if="isLoggedIn" to="/profile" variant="text" prepend-icon="mdi-account">Profil</v-btn>
-    <v-btn v-if="isLoggedIn" variant="text" prepend-icon="mdi-logout" @click="logout">Abmelden</v-btn>
+    <v-btn v-if="isLoggedIn" to="/profile" variant="text" prepend-icon="mdi-account"> Profil </v-btn>
+    <v-btn v-if="isLoggedIn" variant="text" prepend-icon="mdi-logout" @click="logout"> Abmelden </v-btn>
   </v-app-bar>
 
   <v-navigation-drawer v-if="$router.currentRoute.value.name != 'ViewLogin' && pageSettingsStore.showHeader == true" v-model="showSideBar" width="220" expand-on-hover rail>

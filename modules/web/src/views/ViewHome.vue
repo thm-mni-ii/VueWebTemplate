@@ -11,7 +11,7 @@
         <p>Hier siehst du die Kursliste, die Kursansicht, die Mitgliederverwaltung und den einfachen Login. Die Daten kommen aktuell aus lokalen Beispieldaten und sollten später durch echte Services ersetzt werden.</p>
       </v-card-text>
       <v-card-actions class="card-action">
-        <v-btn to="/course">ZU DEN KURSEN</v-btn>
+        <v-btn to="/course"> ZU DEN KURSEN </v-btn>
       </v-card-actions>
     </v-card>
 
@@ -26,15 +26,17 @@
         <p>Die eingebauten Services simulieren Kurs-, Semester- und Login-Daten. Das ist absichtlich nur ein Startpunkt für studentische Projekte und soll später gegen eine echte Backend-Anbindung ausgetauscht werden.</p>
         <br />
         <v-card variant="outlined" class="newscard">
-          <v-card-title class="newscard_title">Hinweis:</v-card-title>
+          <v-card-title class="newscard_title"> Hinweis: </v-card-title>
           <v-card-text>
-            <p v-for="item in test" :key="item">{{ item }}</p>
+            <p v-for="item in test" :key="item">
+              {{ item }}
+            </p>
           </v-card-text>
         </v-card>
       </v-card-text>
 
       <v-card-actions>
-        <v-btn to="/login">ZUM DEMO-LOGIN</v-btn>
+        <v-btn to="/login"> ZUM DEMO-LOGIN </v-btn>
       </v-card-actions>
     </v-card>
   </div>

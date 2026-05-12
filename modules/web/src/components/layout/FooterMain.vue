@@ -4,8 +4,8 @@
       <v-btn v-for="link in links" :key="link.name" :to="link.url" color="gray" variant="text" class="mx-2" rounded="xl">
         {{ link.name }}
       </v-btn>
-      <v-col class="text-center mt-4" cols="12"
-        ><strong> &copy; {{ new Date().getFullYear() }} Technische Hochschule Mittelhessen</strong>
+      <v-col class="text-center mt-4" cols="12">
+        <strong> &copy; {{ new Date().getFullYear() }} Technische Hochschule Mittelhessen</strong>
       </v-col>
     </v-row>
   </v-footer>

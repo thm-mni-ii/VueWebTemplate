@@ -11,7 +11,7 @@
       <v-card-text class="text"> UH OH! Verirrt? </v-card-text>
       <v-card-actions>
         <v-spacer>
-          <v-btn color="primary-dark" variant="flat" to="/">Hier geht es zurück nach Hause</v-btn>
+          <v-btn color="primary-dark" variant="flat" to="/"> Hier geht es zurück nach Hause </v-btn>
         </v-spacer>
       </v-card-actions>
     </v-card>
@@ -19,8 +19,8 @@
 </template>
 
 <script setup lang="ts">
-import BasicBackground from "@/components/BasicBackground.vue";
-import IconEWiLL from "@/components/icons/IconEWiLL.vue";
+import BasicBackground from '@/components/BasicBackground.vue'
+import IconEWiLL from '@/components/icons/IconEWiLL.vue'
 </script>
 
 <style scoped lang="scss">
