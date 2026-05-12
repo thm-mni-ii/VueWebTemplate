@@ -2,7 +2,6 @@ import { createDemoUserFromUsername } from './mockData'
 import type User from '@/model/User'
 
 class AuthService {
-  
   login(user: { username: string; password: string }): Promise<User> {
     return new Promise<User>((resolve, reject) => {
       if (!user.username || !user.password) {
@@ -16,7 +15,6 @@ class AuthService {
       resolve(demoUser)
     })
   }
-
 
   tokenLogin(this_jsessionid: string): Promise<User> {
     return new Promise<User>((resolve) => {
@@ -33,8 +31,8 @@ class AuthService {
   }
 
   logout() {
-    localStorage.removeItem("user");
-    console.log("logout successful");
+    localStorage.removeItem('user')
+    console.log('logout successful')
   }
 
   isValid() {
@@ -42,4 +40,4 @@ class AuthService {
   }
 }
 
-export default new AuthService();
+export default new AuthService()

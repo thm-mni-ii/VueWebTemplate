@@ -41,10 +41,7 @@
 </template>
 
 <script setup lang="ts">
-const test = [
-  'Die Implementierung nutzt aktuell nur lokale Demo-Daten.',
-  'Ersetze die Services später durch echte API-Calls oder ein eigenes Backend.'
-]
+const test = ['Die Implementierung nutzt aktuell nur lokale Demo-Daten.', 'Ersetze die Services später durch echte API-Calls oder ein eigenes Backend.']
 </script>
 
 <style scoped lang="scss">
@@ -54,8 +51,8 @@ const test = [
   row-gap: 2rem;
   column-gap: 1.5rem;
   grid-template-areas:
-    "card card"
-    "card card";
+    'card card'
+    'card card';
   padding: 2.5rem 2rem;
   background-color: rgb(var(--v-theme-primary));
 }

@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 services:
   # Backend intentionally removed from this starter template.
   # Keep this file as a placeholder for later student projects.
@@ -13,12 +13,12 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_HOST=postgres
     ports:
-    # TODO remove for production
-      - '5433:5432'
-    volumes: 
+      # TODO remove for production
+      - "5433:5432"
+    volumes:
       - data:/var/lib/postgresql/data
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
       timeout: 5s
       retries: 5

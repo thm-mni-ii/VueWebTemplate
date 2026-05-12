@@ -50,17 +50,7 @@ const createSemester = (id: number, name: string, startDate: string, endDate: st
   endDate
 })
 
-const createCourse = (
-  id: number,
-  name: string,
-  description: string,
-  semester: Semester,
-  owner: number,
-  keyPassword: string,
-  location: string,
-  active = true,
-  creationDate = new Date().toISOString()
-): CoursePL => ({
+const createCourse = (id: number, name: string, description: string, semester: Semester, owner: number, keyPassword: string, location: string, active = true, creationDate = new Date().toISOString()): CoursePL => ({
   id,
   name,
   description,

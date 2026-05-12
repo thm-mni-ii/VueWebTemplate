@@ -32,9 +32,7 @@
       </v-card-text>
     </v-card>
     <div class="course-note">
-      <v-alert type="info" variant="tonal" density="comfortable">
-        In der Originalanwendung befanden sich hier Aufgaben, Abgaben und eine Modellierungsplattform. Dieses Template reduziert die Ansicht bewusst auf die Kursverwaltung.
-      </v-alert>
+      <v-alert type="info" variant="tonal" density="comfortable"> In der Originalanwendung befanden sich hier Aufgaben, Abgaben und eine Modellierungsplattform. Dieses Template reduziert die Ansicht bewusst auf die Kursverwaltung. </v-alert>
     </div>
   </div>
   <DialogConfirmVue ref="dialogConfirm"></DialogConfirmVue>
@@ -42,72 +40,72 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
-import { useAuthUserStore } from "@/stores/authUserStore";
-import { useRouter } from "vue-router";
+import { onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
+import { useAuthUserStore } from '@/stores/authUserStore'
+import { useRouter } from 'vue-router'
 
-import type CoursePL from "@/model/course/CoursePL";
-import courseService from "@/services/course.service";
+import type CoursePL from '@/model/course/CoursePL'
+import courseService from '@/services/course.service'
 
-import DialogConfirmVue from "@/dialog/DialogConfirm.vue";
-import DialogCreateCourse from "@/dialog/DialogCreateCourse.vue";
+import DialogConfirmVue from '@/dialog/DialogConfirm.vue'
+import DialogCreateCourse from '@/dialog/DialogCreateCourse.vue'
 
-const route = useRoute();
-const router = useRouter();
-const authUserStore = useAuthUserStore();
+const route = useRoute()
+const router = useRouter()
+const authUserStore = useAuthUserStore()
 
-const course = ref<CoursePL>();
-const courseId = ref(Number(route.params.id));
-const userId = ref(authUserStore.auth.user?.id);
-const courseRole = ref("");
+const course = ref<CoursePL>()
+const courseId = ref(Number(route.params.id))
+const userId = ref(authUserStore.auth.user?.id)
+const courseRole = ref('')
 
-const dialogConfirm = ref<typeof DialogConfirmVue>();
-const dialogCreateCourse = ref<typeof DialogCreateCourse>();
+const dialogConfirm = ref<typeof DialogConfirmVue>()
+const dialogCreateCourse = ref<typeof DialogCreateCourse>()
 
 onMounted(() => {
   courseService.getUserRoleInCourse(userId.value!, courseId.value).then((response) => {
-    if (response == "NONE") {
-      router.push(route.path + "/signup");
+    if (response == 'NONE') {
+      router.push(route.path + '/signup')
     } else {
-      courseRole.value = response;
+      courseRole.value = response
       courseService.getCourse(courseId.value).then((response) => {
-        course.value = response.data;
-      });
+        course.value = response.data
+      })
     }
-  });
-});
+  })
+})
 
 const leaveCourse = () => {
   if (dialogConfirm.value) {
-    dialogConfirm.value.openDialog(`Verlasse Kurs: ${course.value?.name}`, "Willst du den Kurs wirklich verlassen?", "Verlassen").then((result: boolean) => {
+    dialogConfirm.value.openDialog(`Verlasse Kurs: ${course.value?.name}`, 'Willst du den Kurs wirklich verlassen?', 'Verlassen').then((result: boolean) => {
       if (result) {
         courseService
           .leaveCourse(courseId.value, userId.value)
           .then(() => {
-            router.push("/");
+            router.push('/')
           })
           .catch((error) => {
-            console.log(error);
-          });
+            console.log(error)
+          })
       }
-    });
+    })
   }
-};
+}
 
 const editCourse = () => {
   if (dialogCreateCourse.value) {
     dialogCreateCourse.value.openDialog(courseId.value).then(() => {
       courseService.getCourse(courseId.value).then((response) => {
-        course.value = response.data;
-      });
-    });
+        course.value = response.data
+      })
+    })
   }
-};
+}
 
 const openMembersView = () => {
-  router.push(route.path + "/members");
-};
+  router.push(route.path + '/members')
+}
 </script>
 
 <style scoped>

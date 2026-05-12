@@ -1,8 +1,6 @@
 <template>
   <div class="container">
-    <v-alert class="mb-4" type="info" variant="tonal" density="comfortable">
-      Diese Liste nutzt Mock-Daten. Tausche die Service-Schicht später gegen echte Backend-Calls aus.
-    </v-alert>
+    <v-alert class="mb-4" type="info" variant="tonal" density="comfortable"> Diese Liste nutzt Mock-Daten. Tausche die Service-Schicht später gegen echte Backend-Calls aus. </v-alert>
     <v-text-field v-model="search" label="Search" density="compact" prepend-icon="mdi-magnify" variant="underlined" hide-details class="search-bar"></v-text-field>
     <v-row>
       <v-checkbox v-model="checkboxActive" label="Nur aktive Kurse anzeigen" @change="filterCourseList"></v-checkbox>
@@ -80,7 +78,7 @@ const loadCourses = () => {
 
 const filterCourseList = () => {
   let filteredList: CourseAndParticipationPL[] = allCourses.value
-  if (checkboxActive.value) filteredList = filteredList.filter((item) => ifActiveSemester(item.course.semester as Semester)) 
+  if (checkboxActive.value) filteredList = filteredList.filter((item) => ifActiveSemester(item.course.semester as Semester))
   if (checkboxFriedberg.value) filteredList = filteredList.filter((item) => item.course.location == 'Friedberg')
   if (checkboxGießen.value) filteredList = filteredList.filter((item) => item.course.location == 'Gießen')
   if (checkboxParticipation.value) filteredList = filteredList.filter((item) => item.member == true)

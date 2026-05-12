@@ -1,8 +1,6 @@
 <template>
   <div class="container">
-    <v-alert class="demo-note" type="info" variant="tonal" density="comfortable">
-      Die Kursdaten stammen aus lokalen Beispieldaten. Genau hier kannst du später die echte API anbinden.
-    </v-alert>
+    <v-alert class="demo-note" type="info" variant="tonal" density="comfortable"> Die Kursdaten stammen aus lokalen Beispieldaten. Genau hier kannst du später die echte API anbinden. </v-alert>
     <CoursesList ref="coursesList"></CoursesList>
     <v-btn v-if="isAdmin" id="createCourseBtn" color="primary-dark" @click="createCourse">Kurs erstellen</v-btn>
   </div>
@@ -10,34 +8,34 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import { useRouter } from "vue-router";
-import DialogCreateCourse from "../dialog/DialogCreateCourse.vue";
-import CoursesList from "@/components/CoursesList.vue";
-import { useAuthUserStore } from "../stores/authUserStore";
-import GlobalRoles from "@/enums/GlobalRoles";
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import DialogCreateCourse from '../dialog/DialogCreateCourse.vue'
+import CoursesList from '@/components/CoursesList.vue'
+import { useAuthUserStore } from '../stores/authUserStore'
+import GlobalRoles from '@/enums/GlobalRoles'
 
-const authUserStore = useAuthUserStore();
-const router = useRouter();
+const authUserStore = useAuthUserStore()
+const router = useRouter()
 
-const dialogCreateCourse = ref<typeof DialogCreateCourse>();
-const coursesList = ref<typeof CoursesList>();
+const dialogCreateCourse = ref<typeof DialogCreateCourse>()
+const coursesList = ref<typeof CoursesList>()
 
-const isAdmin = ref(false);
+const isAdmin = ref(false)
 
 onMounted(() => {
-  coursesList.value?.loadCourses();
+  coursesList.value?.loadCourses()
 
-  isAdmin.value = authUserStore.user?.roles.includes(GlobalRoles.ROLE_ADMIN)!;
-});
+  isAdmin.value = authUserStore.user?.roles.includes(GlobalRoles.ROLE_ADMIN)!
+})
 
 const createCourse = () => {
   if (dialogCreateCourse.value) {
     dialogCreateCourse.value.openDialog().then((id: number) => {
-      if (id != undefined) router.push("/course/" + id);
-    });
+      if (id != undefined) router.push('/course/' + id)
+    })
   }
-};
+}
 </script>
 
 <style scoped lang="scss">

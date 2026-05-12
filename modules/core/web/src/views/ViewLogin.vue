@@ -63,7 +63,7 @@ onMounted(() => {
   // log token parameter
   const jsessionid = router.currentRoute.value.query.jsessionid?.toString()
   const isIframe: boolean = router.currentRoute.value.query.iframe?.toString().toLowerCase() === 'true'
-  
+
   if (jsessionid) {
     tokenLogin(jsessionid)
   }

@@ -9,9 +9,7 @@
       </v-card-title>
       <v-card-text>
         <p>{{ courseName }}</p>
-        <v-alert class="mt-4" type="info" variant="tonal" density="comfortable">
-          Auch diese Ansicht nutzt lokale Beispieldaten. Damit bleibt die Ordnerstruktur sichtbar, ohne dass ein Backend nötig ist.
-        </v-alert>
+        <v-alert class="mt-4" type="info" variant="tonal" density="comfortable"> Auch diese Ansicht nutzt lokale Beispieldaten. Damit bleibt die Ordnerstruktur sichtbar, ohne dass ein Backend nötig ist. </v-alert>
         <br />
         <div class="align-items-center">
           <v-chip prepend-icon="mdi-account-circle" color="secondary" text-color="white" label> {{ courseRole }} </v-chip>
