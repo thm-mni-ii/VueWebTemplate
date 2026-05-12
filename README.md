@@ -6,6 +6,6 @@ Der enthaltene Web-Teil arbeitet mit Mock-Daten und kommt ohne API aus. Modellie
 
 ## Einstieg
 
-1. Öffne [modules/core/web](modules/core/web).
+1. Öffne [modules/web](modules/web).
 2. Starte dort die Vue-App mit `npm run dev`.
 3. Ersetze die Mock-Services später durch dein eigenes Backend.
