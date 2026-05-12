@@ -1,41 +1,18 @@
-# eWiLL_frontend
+# eWILL Frontend Template
 
-This template should help get you started developing with Vue 3 in Vite.
+Dieses Frontend ist als verständliche Ausgangsbasis für studentische Kursverwaltungs-Projekte gedacht.
 
-## Recommended IDE Setup
+Aktuell laufen alle Daten über lokale Mock-Services. Das macht den Aufbau ohne Backend direkt nachvollziehbar, bis du die Services später durch echte API-Aufrufe ersetzt.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin).
+Axios bleibt bewusst als Beispiel-Dependency enthalten, damit du für eigene Backend-APIs direkt an einer typischen HTTP-Schicht ansetzen kannst.
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+## Start
 
 ```sh
 npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+## Hinweis
 
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+Die Ordnerstruktur in `src/` ist bewusst erhalten geblieben, auch wenn die Modellierungs-, Aufgaben- und Feedback-Features entfernt wurden.

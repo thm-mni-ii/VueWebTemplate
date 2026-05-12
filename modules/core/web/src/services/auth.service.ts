@@ -1,49 +1,35 @@
-import axios from "axios";
+import { createDemoUserFromUsername } from './mockData'
+import type User from '@/model/User'
 
 class AuthService {
   
-  login(user: { username: string; password: string }) {
-    return axios
-      .post(
-        "/api/auth/signin",
-        {
-          username: user.username,
-          password: user.password,
-        }
-      )
-      .then((response) => {
-        if (response.data.token) {
-          localStorage.setItem("user", JSON.stringify(response.data));
-          localStorage.setItem("role", response.data["roles"]);
-          console.log("login successful");
-        }
-        return response.data;
-      })
-      .catch((error) => {
-        throw error;
-      });
+  login(user: { username: string; password: string }): Promise<User> {
+    return new Promise<User>((resolve, reject) => {
+      if (!user.username || !user.password) {
+        reject(new Error('Username and password are required'))
+        return
+      }
+
+      const demoUser = createDemoUserFromUsername(user.username)
+      localStorage.setItem('user', JSON.stringify(demoUser))
+      localStorage.setItem('role', demoUser.roles.join(','))
+      resolve(demoUser)
+    })
   }
 
 
-  tokenLogin(this_jsessionid: string) {
-    return axios
-      .post(
-        "/api/auth/tokenLogin",
-        {
-          jsessionid: this_jsessionid,
-        }
-      )
-      .then((response) => {
-        if (response.data.token) {
-          localStorage.setItem("user", JSON.stringify(response.data));
-          localStorage.setItem("role", response.data["roles"]);
-          console.log("login successful");
-        }
-        return response.data;
-      })
-      .catch((error) => {
-        throw error;
-      });
+  tokenLogin(this_jsessionid: string): Promise<User> {
+    return new Promise<User>((resolve) => {
+      const tokenUser = createDemoUserFromUsername(`token-${this_jsessionid.slice(0, 8)}`)
+      const authenticatedUser = {
+        ...tokenUser,
+        token: this_jsessionid
+      }
+
+      localStorage.setItem('user', JSON.stringify(authenticatedUser))
+      localStorage.setItem('role', authenticatedUser.roles.join(','))
+      resolve(authenticatedUser)
+    })
   }
 
   logout() {
@@ -52,14 +38,7 @@ class AuthService {
   }
 
   isValid() {
-    return axios
-      .get("/api/auth/isValid")
-      .then((response) => {
-        return response.data;
-      })
-      .catch((error) => {
-        return error.response;
-      });
+    return Promise.resolve(localStorage.getItem('user') != null)
   }
 }
 

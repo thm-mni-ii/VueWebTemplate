@@ -1,5 +1,8 @@
 <template>
   <div class="container">
+    <v-alert class="mb-4" type="info" variant="tonal" density="comfortable">
+      Diese Liste nutzt Mock-Daten. Tausche die Service-Schicht später gegen echte Backend-Calls aus.
+    </v-alert>
     <v-text-field v-model="search" label="Search" density="compact" prepend-icon="mdi-magnify" variant="underlined" hide-details class="search-bar"></v-text-field>
     <v-row>
       <v-checkbox v-model="checkboxActive" label="Nur aktive Kurse anzeigen" @change="filterCourseList"></v-checkbox>

@@ -1,5 +1,8 @@
 <template>
   <div class="container">
+    <v-alert class="demo-note" type="info" variant="tonal" density="comfortable">
+      Die Kursdaten stammen aus lokalen Beispieldaten. Genau hier kannst du später die echte API anbinden.
+    </v-alert>
     <CoursesList ref="coursesList"></CoursesList>
     <v-btn v-if="isAdmin" id="createCourseBtn" color="primary-dark" @click="createCourse">Kurs erstellen</v-btn>
   </div>
@@ -48,5 +51,9 @@ const createCourse = () => {
 .container {
   width: auto;
   margin: 20px 20px;
+}
+
+.demo-note {
+  margin-bottom: 20px;
 }
 </style>

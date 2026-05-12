@@ -1,22 +1,9 @@
-import type Semester from "@/model/Semester"
-import axios from "axios";
+import { listSemesters } from './mockData'
 
 class SemesterService {
 
     getAllSemesters(){
-        let semesters: Semester[] = [];
-        return new Promise<Semester[]>((resolve, reject) => {
-            axios.get("/api/semester")
-            .then((response) => {
-              semesters = response.data     
-              // console.log(semesters)      
-              resolve(semesters)
-            })
-            .catch((error) => {
-              console.log(error);
-              reject()
-            });
-          })
+        return Promise.resolve(listSemesters())
     }
 
 

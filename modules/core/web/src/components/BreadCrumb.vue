@@ -7,7 +7,6 @@ import { onMounted } from 'vue'
 import { ref } from 'vue'
 
 import courseService from '../services/course.service'
-import taskService from '../services/task.service'
 import { watch } from 'vue'
 
 const items = ref<Array<{ title: string; disabled: boolean; href: string }>>([
@@ -42,8 +41,6 @@ const wordReplacement = (word: string) => {
   switch (word) {
     case 'course':
       return 'Alle Kurse'
-    case 'task':
-      return 'Aufgabe'
     default:
       return word
   }
@@ -72,20 +69,9 @@ const calculateBreadCrumb = async () => {
       href: link
     }
 
-    // if last item was course, replace id with course name
     if (i > 0 && path[i - 1] == 'course') {
       let newTitle = await courseService.getCourse(Number(path[i])).then((response) => {
         return response.data.name
-      })
-
-      breadcrumbItem.title = newTitle
-
-      items.value.push(breadcrumbItem)
-    }
-    // if last item was course, replace id with task name
-    else if (i > 0 && path[i - 1] == 'task') {
-      let newTitle = await taskService.getTask(Number(path[i])).then((response) => {
-        return response.name
       })
 
       breadcrumbItem.title = newTitle

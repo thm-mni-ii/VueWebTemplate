@@ -1,88 +1,75 @@
-import axios, { type AxiosResponse } from 'axios'
 import type CoursePL from '../model/course/CoursePL'
 import type CourseAndParticipationPL from '../model/course/CourseAndParticipationPL'
 import type Member from '../model/course/Member'
 import type CourseRoles from '@/enums/CourseRoles'
+import { changeUserRole, getCourseById, getCourseMembers, getUserRoleInCourse, joinCourse, leaveCourse, listCoursesForUser, removeCourse, upsertCourse } from './mockData'
 
 class CourseService {
-  getCourse(id: number): Promise<AxiosResponse<CoursePL>> {
-    return axios.get('/api/course/' + id)
+  getCourse(id: number): Promise<{ data: CoursePL }> {
+    return new Promise((resolve, reject) => {
+      const course = getCourseById(id)
+
+      if (!course) {
+        reject(new Error('Course not found'))
+        return
+      }
+
+      resolve({ data: course })
+    })
   }
 
   getAllCourses(userId: number): Promise<CourseAndParticipationPL[]> {
-    return new Promise<CourseAndParticipationPL[]>((resolve, reject) => {
-      axios
-        .get('/api/course/all/' + userId)
-        .then((response) => {
-          const courses: CourseAndParticipationPL[] = response.data
-          resolve(courses)
-        })
-        .catch((error) => {
-          console.log(error)
-          reject()
-        })
-    })
+    return Promise.resolve(listCoursesForUser(userId))
   }
 
   postCourse(course: CoursePL) {
-    course.id = 0
-    return axios.post('/api/course', course)
+    const ownerId = course.owner ?? 0
+    const savedCourse = upsertCourse(course, ownerId)
+    return Promise.resolve({ data: savedCourse })
   }
 
   putCourse(course: CoursePL) {
-    return axios.put('/api/course/' + course.id, course)
+    const savedCourse = upsertCourse(course, course.owner)
+    return Promise.resolve({ data: savedCourse })
   }
 
   joinCourse(courseId: number, key: string, userId: number) {
-    return axios.post('/api/course/' + courseId + '/join', {
-      keyPass: key,
-      userId: userId
-    })
+    joinCourse(courseId, key, userId)
+    return Promise.resolve({ status: 200 })
   }
 
   leaveCourse(courseId: number, userId?: number) {
-    return axios.post('/api/course/' + courseId + '/leave?userId=' + userId)
+    leaveCourse(courseId, userId)
+    return Promise.resolve({ status: 200 })
   }
 
   getUserRoleInCourse(userId: number, courseId: number): Promise<CourseRoles> {
-    return new Promise<CourseRoles>((resolve, reject) => {
-      axios
-        .get('/api/course/' + courseId + '/user/' + userId + '/role')
-        .then((response) => {
-          resolve(response.data)
-        })
-        .catch((error) => {
-          console.log(error)
-          reject()
-        })
-    })
+    return Promise.resolve(getUserRoleInCourse(userId, courseId))
   }
 
-  changeUserRole(courseId: number, userId: number, role: string, executorUserId: number) {
-    return axios.post('/api/course/' + courseId + '/changeUserRole/' + userId + '/' + role + '/' + executorUserId)
+  changeUserRole(courseId: number, userId: number, role: string) {
+    changeUserRole(courseId, userId, role)
+    return Promise.resolve({ status: 200 })
   }
 
   deleteCourse(courseId: number) {
-    return axios.delete('/api/course/' + courseId)
+    removeCourse(courseId)
+    return Promise.resolve({ status: 200 })
   }
 
   getCourseMembers(courseId: number) {
-    return axios.get('/api/course/' + courseId + '/students')
+    return Promise.resolve({ data: getCourseMembers(courseId) })
   }
 
   getCourseMembersAsMap(courseId: number): Promise<Map<number, Member>> {
     const map: Map<number, Member> = new Map()
-    return new Promise<Map<number, Member>>((resolve, reject) => {
-      this.getCourseMembers(courseId)
-        .then((response) => {
-          response.data.forEach((element: Member) => {
-            map.set(element.user.id, element)
-          })
-          resolve(map)
+    return new Promise<Map<number, Member>>((resolve) => {
+      this.getCourseMembers(courseId).then((response) => {
+        response.data.forEach((element: Member) => {
+          map.set(element.user.id, element)
         })
-        .catch(() => {
-          reject()
-        })
+        resolve(map)
+      })
     })
   }
 }

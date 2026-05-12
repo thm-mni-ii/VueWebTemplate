@@ -7,9 +7,8 @@
       </router-link>
     </v-toolbar-title>
     <v-spacer />
-    <div>
-      <DropdownUserNav></DropdownUserNav>
-    </div>
+    <v-btn v-if="isLoggedIn" to="/profile" variant="text" prepend-icon="mdi-account">Profil</v-btn>
+    <v-btn v-if="isLoggedIn" variant="text" prepend-icon="mdi-logout" @click="logout">Abmelden</v-btn>
   </v-app-bar>
 
   <v-navigation-drawer v-if="$router.currentRoute.value.name != 'ViewLogin' && pageSettingsStore.showHeader == true" v-model="showSideBar" width="220" expand-on-hover rail>
@@ -17,9 +16,7 @@
       <v-list-item to="/" active-class="active" prepend-icon="mdi-human-greeting" title="Willkommen" value="introduction" />
       <v-list-item to="/home" active-class="active" prepend-icon="mdi-home-variant" title="Startseite" value="home" />
       <v-list-item to="/course" active-class="active" prepend-icon="mdi-file-multiple" title="Alle Kurse" value="course" />
-      <v-list-item to="/modeling" active-class="active" prepend-icon="mdi-pencil-ruler" title="Modellierung" value="modeling" />
-      <v-list-item to="/feedbackReport" active-class="active" prepend-icon="mdi-bug" title="Feedback" value="report" />
-      <v-list-item v-if="admin" to="/feedbackOverview" active-class="active" prepend-icon="mdi-view-dashboard-variant-outline" title="Feedback Overview" value="report" />
+      <v-list-item v-if="isLoggedIn" to="/profile" active-class="active" prepend-icon="mdi-account" title="Profil" value="profile" />
     </v-list>
   </v-navigation-drawer>
 
@@ -35,43 +32,47 @@
         <span v-if="!smAndDown"> Alle Kurse </span>
         <v-tooltip v-if="smAndDown" activator="parent" location="bottom"> Alle Kurse </v-tooltip>
       </v-btn>
-      <v-btn to="/modeling" active-class="active" prepend-icon="mdi-pencil-ruler">
-        <span v-if="!smAndDown"> Modellierung </span>
-        <v-tooltip v-if="smAndDown" activator="parent" location="bottom"> Modellierung </v-tooltip>
+      <v-btn v-if="isLoggedIn" to="/profile" active-class="active" prepend-icon="mdi-account">
+        <span v-if="!smAndDown"> Profil </span>
+        <v-tooltip v-if="smAndDown" activator="parent" location="bottom"> Profil </v-tooltip>
       </v-btn>
-      <v-btn to="/feedbackReport" active-class="active" prepend-icon="mdi-bug">
-        <span v-if="!smAndDown"> Feedback </span>
-        <v-tooltip v-if="smAndDown" activator="parent" location="bottom"> Feedback </v-tooltip>
-      </v-btn>
-      <v-btn v-if="admin" to="/feedbackOverview" active-class="active" prepend-icon="mdi-view-dashboard-variant-outline">
-        <span v-if="!smAndDown"> Feedback Overview </span>
-        <v-tooltip v-if="smAndDown" activator="parent" location="bottom"> Feedback Overview </v-tooltip>
-      </v-btn>
-      <v-btn v-if="admin" icon @click="pageSettingsStore.showHeader = !pageSettingsStore.showHeader">
+      <v-btn v-if="isLoggedIn" icon @click="pageSettingsStore.showHeader = !pageSettingsStore.showHeader">
         <v-icon>{{ pageSettingsStore.showHeader ? 'mdi-eye-off' : 'mdi-eye' }}</v-icon>
         <v-tooltip activator="parent" location="bottom"> Toggle Bar </v-tooltip>
+      </v-btn>
+      <v-btn v-if="isLoggedIn" icon @click="logout">
+        <v-icon>mdi-logout</v-icon>
+        <v-tooltip activator="parent" location="bottom"> Abmelden </v-tooltip>
       </v-btn>
     </template>
   </v-app-bar>
 </template>
 
 <script setup lang="ts">
-import IconEWiLL from '@/components/icons/IconEWiLL.vue'
 import IconFBS from '@/components/icons/IconFBS.vue'
-import DropdownUserNav from '@/components/modelingTool/DropdownUserNav.vue'
 
 import { usePageSettingsStore } from '@/stores/pageSettingsStore'
+import { useAuthUserStore } from '@/stores/authUserStore'
 
 import { RouterLink } from 'vue-router'
-import { onMounted, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useDisplay } from 'vuetify'
+import { useRouter } from 'vue-router'
 
 const { smAndDown } = useDisplay()
 
 const showSideBar = ref(true)
-const admin = ref(localStorage.getItem('user')?.includes('ADMIN'))
+const router = useRouter()
+const authUserStore = useAuthUserStore()
+const isLoggedIn = computed(() => authUserStore.isLoggedIn)
 
 const pageSettingsStore = usePageSettingsStore()
+
+const logout = () => {
+  authUserStore.logout().then(() => {
+    router.push('/login')
+  })
+}
 </script>
 
 <style scoped lang="scss">

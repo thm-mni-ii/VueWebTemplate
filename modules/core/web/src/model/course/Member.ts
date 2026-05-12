@@ -4,12 +4,10 @@ export default interface Member{
         username: string,
         firstName: string,
         lastName: string,
-        roles: [
-            {
-                id: number,
-                name: string
-            }
-        ]
+        roles: {
+            id: number,
+            name: string
+        }[]
     }
 
     role: string;

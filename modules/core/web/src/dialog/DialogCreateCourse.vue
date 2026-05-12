@@ -5,6 +5,7 @@
         <span v-if="newCourse">Neuen Kurs erstellen</span>
         <span v-if="!newCourse">Kurs bearbeiten: {{ course.name }}</span>
       </v-card-title>
+      <v-card-subtitle>Die Daten landen nur in der lokalen Demo-Schicht und sollten später durch ein Backend ersetzt werden.</v-card-subtitle>
       <v-form ref="form" v-model="valid" @submit.prevent>
         <v-card-text>
           <v-row>

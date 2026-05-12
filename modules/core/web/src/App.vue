@@ -21,7 +21,7 @@ import HeaderMain from '@/components/layout/HeaderMain.vue'
 
 const router = useRouter()
 
-const hideBreadcrumbIn = ['Home', 'Modeling', 'ViewLogin', 'ViewIntroduction', 'View404Page', 'ViewBugReport', 'ViewBugOverview']
+const hideBreadcrumbIn = ['Home', 'ViewLogin', 'ViewIntroduction', 'View404Page']
 const showBreadcrumb = ref(true)
 
 watch(

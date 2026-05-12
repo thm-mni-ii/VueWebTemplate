@@ -2,14 +2,14 @@
   <BasicBackground> 
     <v-card class="card">
       <v-card-title class="title">
-        <span>Herzlich willkommen...</span>
+        <span>Willkommen im Kurs-Template</span>
 
         <!-- <span> <IconEWiLL /> </span> -->
       </v-card-title>
-      <v-card-text class="text"> ...auf unserer neuen Modellierungsplattform eWiLL. In der aktuellen Version steht Euch die Modellierung zur Verfügung, viele weitere Features folgen in der Zukunft. Eure erstellten Diagramme könnt ihr abspeichern und in verschiedenen Kategorien einsortieren, die Ihr ebenfalls selber anlegen könnt. </v-card-text>
+      <v-card-text class="text">Dieses Projekt ist als Ausgangslage für studentische Folgeprojekte gedacht. Es zeigt die Kursverwaltung mit lokalen Beispiel-Daten und bewusst einfachen Services. Alles was mit API, Modellierung oder Aufgabenverwaltung zu tun hatte, wurde entfernt.</v-card-text>
       <v-card-actions>
         <v-spacer>
-          <v-btn variant="flat" color="primary-dark" to="/modeling">Hier könnt Ihr modellieren</v-btn>
+          <v-btn variant="flat" color="primary-dark" to="/course">Zu den Kursen</v-btn>
         </v-spacer>
       </v-card-actions>
     </v-card>

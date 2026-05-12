@@ -1,14 +1,10 @@
-import axios from "axios";
-import authHeader from "./auth-header";
-
-
 class UserService {
   getPublicContent() {
-    return axios.get("/api/test/all");
+    return Promise.resolve({ data: 'Dies ist ein lokaler Demo-Startpunkt ohne Backend. Ersetze diese Daten später durch echte Services.' })
   }
 
   getUserBoard() {
-    return axios.get("/api/test/user", { headers: authHeader() });
+    return Promise.resolve({ data: 'Lokale Demo-Nutzeransicht' })
   }
 }
 

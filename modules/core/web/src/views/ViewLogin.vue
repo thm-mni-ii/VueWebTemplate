@@ -13,6 +13,7 @@
 
         <!-- <span> <IconEWiLL /> </span> -->
       </v-card-title>
+      <v-card-subtitle>Lokaler Demo-Login ohne Backend. Die spätere API-Anbindung soll hier wieder eingesetzt werden.</v-card-subtitle>
       <v-card-text class="form-container">
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-text-field v-model="userInput" :rules="userRules" label="THM-Kennung" required></v-text-field>
@@ -134,17 +135,7 @@ const localLogin = () => {
         .catch((error) => {
           loading.value = false
           console.log(error)
-          if (error.response && error.response.status === 401) {
-            errorMessage.value = 'Benutzername oder Passwort ist falsch'
-          } else if (error.response && error.response.status === 500) {
-            errorMessage.value = 'Server Error'
-          } else if (error.response && error.response.status === 404) {
-            errorMessage.value = 'Server nicht erreichbar'
-          } else if (error.response && error.response.status === 429) {
-            errorMessage.value = 'Zu viele Anfragen'
-          } else {
-            errorMessage.value = 'Unbekannter Fehler'
-          }
+          errorMessage.value = error instanceof Error ? error.message : 'Login fehlgeschlagen'
         })
     } else {
       loading.value = false

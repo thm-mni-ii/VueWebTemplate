@@ -8,6 +8,9 @@
           Semester: {{ course?.semester.name }} <br />
           Standort: {{ course?.location }}
         </v-card-subtitle>
+        <v-alert class="mt-4" type="info" variant="tonal" density="comfortable">
+          Einschreiben funktioniert hier nur gegen lokale Beispieldaten. Ersetze die Services später durch die gewünschte Backend-Implementierung.
+        </v-alert>
       </v-card-item>
 
       <v-text-field v-if="course?.keyPassword != ''" v-model="key" label="Einschreibeschlüssel" class="textfield" variant="solo"></v-text-field>

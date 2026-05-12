@@ -27,17 +27,18 @@
         <div class="align-items-center">
           <v-chip prepend-icon="mdi-account-circle" color="secondary" text-color="white" label> {{ courseRole }} </v-chip>
           <v-spacer></v-spacer>
-          <v-btn v-if="courseRole == 'OWNER' || courseRole == 'TUTOR'" variant="text" @click="createTask">Aufgabe erstellen</v-btn>
+          <v-btn v-if="courseRole == 'OWNER' || courseRole == 'TUTOR'" variant="text" @click="openMembersView">Mitglieder verwalten</v-btn>
         </div>
       </v-card-text>
     </v-card>
-    <div class="task_list">
-      <TaskList ref="taskList"></TaskList>
+    <div class="course-note">
+      <v-alert type="info" variant="tonal" density="comfortable">
+        In der Originalanwendung befanden sich hier Aufgaben, Abgaben und eine Modellierungsplattform. Dieses Template reduziert die Ansicht bewusst auf die Kursverwaltung.
+      </v-alert>
     </div>
   </div>
   <DialogConfirmVue ref="dialogConfirm"></DialogConfirmVue>
   <DialogCreateCourse ref="dialogCreateCourse"></DialogCreateCourse>
-  <DialogEditTask ref="dialogCreateTask"></DialogEditTask>
 </template>
 
 <script setup lang="ts">
@@ -46,19 +47,16 @@ import { useRoute } from "vue-router";
 import { useAuthUserStore } from "@/stores/authUserStore";
 import { useRouter } from "vue-router";
 
-import TaskList from "@/components/TaskList.vue";
 import type CoursePL from "@/model/course/CoursePL";
 import courseService from "@/services/course.service";
 
 import DialogConfirmVue from "@/dialog/DialogConfirm.vue";
 import DialogCreateCourse from "@/dialog/DialogCreateCourse.vue";
-import DialogEditTask from "@/dialog/DialogEditTask.vue";
 
 const route = useRoute();
 const router = useRouter();
 const authUserStore = useAuthUserStore();
 
-const taskList = ref<typeof TaskList>();
 const course = ref<CoursePL>();
 const courseId = ref(Number(route.params.id));
 const userId = ref(authUserStore.auth.user?.id);
@@ -66,7 +64,6 @@ const courseRole = ref("");
 
 const dialogConfirm = ref<typeof DialogConfirmVue>();
 const dialogCreateCourse = ref<typeof DialogCreateCourse>();
-const dialogCreateTask = ref<typeof DialogEditTask>();
 
 onMounted(() => {
   courseService.getUserRoleInCourse(userId.value!, courseId.value).then((response) => {
@@ -76,9 +73,6 @@ onMounted(() => {
       courseRole.value = response;
       courseService.getCourse(courseId.value).then((response) => {
         course.value = response.data;
-        if (taskList.value) {
-          taskList.value.loadTasks(courseId.value);
-        }
       });
     }
   });
@@ -111,14 +105,6 @@ const editCourse = () => {
   }
 };
 
-const createTask = () => {
-  if (dialogCreateTask.value) {
-    dialogCreateTask.value.openDialog().then(() => {
-      taskList.value!.loadTasks(courseId.value);
-    });
-  }
-};
-
 const openMembersView = () => {
   router.push(route.path + "/members");
 };
@@ -130,7 +116,7 @@ const openMembersView = () => {
   margin: 20px 20px;
 }
 
-.task_list {
+.course-note {
   margin-top: 30px;
 }
 .align-items-center {

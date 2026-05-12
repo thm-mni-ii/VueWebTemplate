@@ -1,6 +1,6 @@
 <template>
   <DialogConfirmVue ref="dialogConfirm"></DialogConfirmVue>
-  <div class="task">
+  <div class="course-members">
     <v-card>
       <v-card-title class="task-header-title">
         <h3 class="headline mb-0">Teilnehmer</h3>
@@ -9,6 +9,9 @@
       </v-card-title>
       <v-card-text>
         <p>{{ courseName }}</p>
+        <v-alert class="mt-4" type="info" variant="tonal" density="comfortable">
+          Auch diese Ansicht nutzt lokale Beispieldaten. Damit bleibt die Ordnerstruktur sichtbar, ohne dass ein Backend nötig ist.
+        </v-alert>
         <br />
         <div class="align-items-center">
           <v-chip prepend-icon="mdi-account-circle" color="secondary" text-color="white" label> {{ courseRole }} </v-chip>
@@ -30,7 +33,7 @@
       </v-data-table>
     </div>
 
-    <div class="task-main"></div>
+    <div class="course-members-main"></div>
   </div>
   <v-snackbar v-model="snackbarSuccess" :timeout="2500"> Rolle erfolgreich geändert </v-snackbar>
 </template>
@@ -127,7 +130,7 @@ const kickAllStudents = () => {
 
 const changeRole = (member: Member) => {
   courseService
-    .changeUserRole(courseId.value, member.user.id, member.role, userId.value)
+    .changeUserRole(courseId.value, member.user.id, member.role)
     .then(() => {
       snackbarSuccess.value = true
       loadCourseMembers()
@@ -143,7 +146,7 @@ const returnToCourse = () => {
 </script>
 
 <style scoped>
-.task {
+.course-members {
   width: auto;
   margin: 20px 20px;
 }
@@ -153,7 +156,7 @@ const returnToCourse = () => {
   align-items: center;
 }
 
-.task-main {
+.course-members-main {
   /* grid with left and right side */
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
